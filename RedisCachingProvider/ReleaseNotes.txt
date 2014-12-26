@@ -1,0 +1,6 @@
+﻿<p style="margin: 0"><b>DNN Redis Caching Provider</b></p>
+<p style="margin: 0"><a href="http://davidjrh.intelequia.com" target="_new">David Rodriguez</a><br /><a href="mailto:davidjrh@hotmail.com">davidjrh@hotmail.com</a></p>
+<p style="margin: 0"><strong>About the DNN Redis Caching Provider</strong></p>
+<p style="margin: 0"><b>Version 01.00.00</b></p>
+<p style="margin: 0">This caching provider allows to use a Redis cache server or cluster within DNN, using a hybrid approach mixing in-memory cache plus the shared
+Redis cache. Note that all the objects must be serializable.  If you try to insert an object that does not supports serialization, an exception will be thrown.</p>
