@@ -56,7 +56,9 @@
     </CreateItem>
     <!--$(MSBuildDnnBinPath)\$(AssemblyName).dll -->
 
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin\Providers"/>
+    <Copy SourceFiles="$(MSBuildDnnBinPath)\StackExchange.Redis.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin\Providers"/>
+    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.Threading.Tasks.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin\Providers"/>
     <Copy SourceFiles="@(SqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(PackageManifestFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />
     <Copy SourceFiles="@(PackageTxtFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />
@@ -83,7 +85,9 @@
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\ResourcesZip" />
 
 
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin\Providers"/>
+    <Copy SourceFiles="$(MSBuildDnnBinPath)\StackExchange.Redis.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin\Providers"/>
+    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.Threading.Tasks.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin\Providers"/>
     <Copy SourceFiles="@(SqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(PackageManifestFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />
     <Copy SourceFiles="@(PackageTxtFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />

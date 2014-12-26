@@ -13,8 +13,9 @@
 	  </owner>
 	  <license src="License.txt"></license>
 	  <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
+    <azureCompatible>true</azureCompatible>
 	  <dependencies>
-		<dependency type="CoreVersion">07.00.00</dependency>
+		  <dependency type="CoreVersion">07.00.00</dependency>
 	  </dependencies>
 	  
 	  <components>
@@ -59,11 +60,20 @@
 		</component>
 		<component type="Assembly">
 		  <assemblies>
-			<basePath>bin/Providers</basePath>
-			<assembly>
-			  <name>DotNetNuke.Providers.RedisCachingProvider.dll</name>
-			</assembly>
-		  </assemblies>
+			  <basePath>bin\Providers</basePath>
+			  <assembly>
+          <path>bin\Providers</path>
+			    <name>DotNetNuke.Providers.RedisCachingProvider.dll</name>
+			  </assembly>
+        <assembly>
+          <path>bin\Providers</path>
+          <name>StackExchange.Redis.dll</name>
+        </assembly>
+        <assembly>
+          <path>bin\Providers</path>
+          <name>Microsoft.Threading.Tasks.dll</name>
+        </assembly>        
+      </assemblies>
 		</component>
 	  </components>
 	</package>

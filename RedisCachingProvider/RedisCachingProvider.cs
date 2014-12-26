@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Caching;
 using System.Xml;
 using DotNetNuke.Common.Utilities;
+using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Cache;
 using StackExchange.Redis;
 using System.Linq;
@@ -208,7 +209,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
             try
             {
                 // Clear internal cache
-                base.ClearCacheInternal(type, data, true);
+                ClearCacheInternal(type, data, true);
 
                 if (notifyRedis) // Avoid recursive calls
                 {
@@ -335,24 +336,15 @@ namespace DotNetNuke.Providers.RedisCachingProvider
             if (!bool.Parse(GetProviderConfigAttribute("silentMode", "false")))
                 return false;
 
+            var logger = LoggerSource.Instance.GetLogger(typeof(RedisCachingProvider));
             if (e.GetType() != typeof(ConfigurationErrorsException) && value != null)
             {
-                Services.Exceptions.Exceptions.LogException(new SerializationException(
-                    string.Format("Error while trying to cache key {0} (Object type: {1}): {2}", key,
-                        value.GetType(), e)));
+                logger.Error(string.Format("Error while trying to store in cache the key {0} (Object type: {1}): {2}", key,
+                    value.GetType()), e);
             }
             else
             {
-                if (HttpContext.Current != null) // Support for out of context
-                {
-                    Services.Exceptions.Exceptions.LogException(e);
-                }
-                else
-                {
-                    if (!EventLog.SourceExists(ProviderName))
-                        EventLog.CreateEventSource(ProviderName, "Application");
-                    EventLog.WriteEntry(ProviderName, string.Format("An error occurred while processing a method in the DNN Redis Caching Provider: {0}", e), EventLogEntryType.Warning);
-                }                
+                logger.Error(e.ToString());
             }
             return true;
         }
