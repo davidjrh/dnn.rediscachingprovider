@@ -181,6 +181,8 @@ namespace DotNetNuke.Providers.RedisCachingProvider
                 {
                     var ttl = RedisCache.KeyTimeToLive(KeyPrefix + key);
                     var v2 = Deserialize<object>(value);
+                    if (UseCompression)
+                        v2 = DecompressData((byte[]) v2);
                     if (ttl.HasValue && ttl.Value.Days < 30)
                     {
                         base.Insert(key, v2, (DNNCacheDependency) null, DateTime.UtcNow.Add(ttl.Value), TimeSpan.Zero,
