@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -26,6 +27,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
         private const string ProviderName = "RedisCachingProvider";
         private const bool DefaultUseCompression = false;
         private const string DefaultPort = "6379";
+        private const string SslDefaultPort = "6380";
 
         private static string GetProviderConfigAttribute(string attributeName, string defaultValue = "")
         {
@@ -216,9 +218,14 @@ namespace DotNetNuke.Providers.RedisCachingProvider
                     // Clear Redis cache 
                     var hostAndPort = ConnectionString.Split(',')[0];
                     if (!hostAndPort.Contains(":"))
-                        hostAndPort += ":" + DefaultPort;
-
-                    var server = Connection.GetServer(hostAndPort);
+                    {
+                        if (hostAndPort.ToLower().Contains(".redis.cache.windows.net"))
+                            hostAndPort += ":" + SslDefaultPort;
+                        else
+                            hostAndPort += ":" + DefaultPort;    
+                    }
+                        
+                    var server = Connection.GetServer(hostAndPort, null);
                     var keys = server.Keys(RedisCache.Database, pattern: KeyPrefix + "*", pageSize: 10000);
                     foreach (var key in keys)
                     {
