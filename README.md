@@ -1,7 +1,7 @@
 Redis Caching Provider for DNN Platform
 ========================
 
-This caching provider allows to use a Redis cache server or cluster within DNN, using a hybrid in-memory approach to increase cache performance (items are cached in the local memory and on Redis cache). You must use Redis 2.8.17 or higher, it's also Azure Redis cache compatible. 
+This caching provider allows to use a Redis cache server or cluster within DNN, using a hybrid in-memory approach to increase cache performance (items are cached in the local memory and on Redis cache). You must use Redis 2.8.17 or higher for an on-premises deployment. The caching provider is also Azure Redis cache compatible. 
 
 Quick Start
 ============
