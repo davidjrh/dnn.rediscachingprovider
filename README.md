@@ -1,7 +1,7 @@
 Redis Caching Provider for DNN Platform
 ========================
 
-This caching provider allows you to use a Redis cache server/cluster within DNN Platform, using a hybrid in-memory approach to increase cache performance (items are cached in the local memory and on Redis cache), and the publisher/subscriber feature to keep in sync all the in-memory caches from the webfarm. You must use Redis 2.8.17 or higher for an on-premises deployment. The caching provider is also Azure Redis cache compatible. 
+This caching provider allows you to use a Redis cache server/cluster within DNN Platform, using a hybrid in-memory approach to increase cache performance (items are cached in the local memory and on Redis cache), and the publisher/subscriber feature to keep in sync all the in-memory caches from the webfarm. You must use Redis 2.8.17 or higher for an on-premises deployment. The caching provider is also Azure Redis cache compatible and works great when running on Azure Websites environment. 
 
 <h3>Quick Start</h3>
 <ol>
