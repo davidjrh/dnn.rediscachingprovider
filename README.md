@@ -24,5 +24,5 @@ Provision a Redis cache to be used by your DNN instance. Perhaps one of the fast
 <h3>Advanced configuration</h3>
 There are some attributes you can use to tweak or debug the caching provider. The initial set of configurable attributes are:
 <ul>
-<li><i>keyPrefix</i> (default string.Empty): this attribute is used to add a prefix to each key stored on the Redis cache. When </li>
+<li><i>keyPrefix</i> (default string.Empty): this attribute is used to add a prefix to each key stored on the Redis cache. This can be used to share the Redis cache between different DNN deployments. When no prefix is specified (default empty string), the current DNN Host Guid will be used so by default, the cached keys are partitioned by the Host identifier.</li>
 </ul>
