@@ -20,3 +20,5 @@ Provision a Redis cache to be used by your DNN instance. Perhaps one of the fast
     providerName="DotNetNuke.Providers.RedisCachingProvider" />
   </connectionStrings>
 ```
+
+<h3>Advanced configuration</h3>
