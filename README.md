@@ -9,7 +9,10 @@ Quick Start
 2) Download from the https://github.com/davidjrh/dnn.rediscachingprovider/tree/master/Release folder the latest version of the DNN Redis Caching provider
 3) Using the Extensions page of your DNN instance, upload and install the Redis caching provider. Once installed, will be the default caching provider. 
 4) Open your web.config file and specify the RedisCachingProvider connection string in the ConnectionStrings section. If you are using Azure Redis cache, your connection string should look like this:
+```xml
   <connectionStrings>
-    <add name="RedisCachingProvider" connectionString="mycache.redis.cache.windows.net,password={base64password},ssl=True"  providerName="DotNetNuke.Providers.RedisCachingProvider" />
+    <add name="RedisCachingProvider" 
+    connectionString="mycache.redis.cache.windows.net,password={base64password},ssl=True"  
+    providerName="DotNetNuke.Providers.RedisCachingProvider" />
   </connectionStrings>
-
+```
