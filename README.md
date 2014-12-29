@@ -46,7 +46,7 @@ These attributes must be specified in the caching provider definition element in
              providerPath="~\Providers\CachingProviders\RedisCachingProvider\" 
              silentMode="true"
              useCompression="false" 
-             keyPrefix="MyUniqueCustomDNNInstanceKeyPrefixThatCanBeALongBase64StringOrWhatever"/>
+             keyPrefix="MyDNNInstance1"/>
       </providers>
     </caching>
   </dotnetnuke>
