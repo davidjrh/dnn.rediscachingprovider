@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using DotNetNuke.Providers.RedisCachingProvider;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -58,6 +59,23 @@ namespace RedisUnitTests
             item2 = cache.GetItem("MyItem2");
             Assert.IsNull(item1);
             Assert.IsNull(item2);
+        }
+
+        [TestMethod]
+        public void NonSerializableObject()
+        {
+            Exception serialEx = null;
+            try
+            {
+                var obj = new NonSerializableClass();
+                var cache = new RedisCachingProvider();
+                cache.Insert("MyItem1", obj); // silentMode=false on app.config                
+            }
+            catch (SerializationException ex)
+            {
+                serialEx = ex;
+            }
+            Assert.IsNotNull(serialEx);
         }
     }
 }

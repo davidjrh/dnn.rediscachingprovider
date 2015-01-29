@@ -342,20 +342,30 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
         private static bool ProcessException(Exception e, string key="", object value = null)
         {
-            if (!bool.Parse(GetProviderConfigAttribute("silentMode", "false")))
-                return false;
+            try
+            {
+                if (!bool.Parse(GetProviderConfigAttribute("silentMode", "false")))
+                    return false;
 
-            var logger = LoggerSource.Instance.GetLogger(typeof(RedisCachingProvider));
-            if (e.GetType() != typeof(ConfigurationErrorsException) && value != null)
-            {
-                logger.Error(string.Format("Error while trying to store in cache the key {0} (Object type: {1}): {2}", key,
-                    value.GetType()), e);
+                var logger = LoggerSource.Instance.GetLogger(typeof (RedisCachingProvider));
+                if (e.GetType() != typeof (ConfigurationErrorsException) && value != null)
+                {
+                    logger.Error(
+                        string.Format("Error while trying to store in cache the key {0} (Object type: {1}): {2}", key,
+                            value.GetType(), e), e);
+                }
+                else
+                {
+                    logger.Error(e.ToString());
+                }
+                return true;
             }
-            else
+            catch (Exception)
             {
-                logger.Error(e.ToString());
+                // If the error can't be logged, allow the caller to raise the exception or not
+                // so do nothing
+                return false;
             }
-            return true;
         }
         #endregion
     }
