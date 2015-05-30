@@ -6,3 +6,5 @@
 Redis cache. Note that all the objects must be serializable.  If you try to insert an object that does not supports serialization, an exception will be thrown.</p>
 <p style="margin: 0"><b>Version 01.00.01</b></p>
 <p style="margin: 0">- Fixed an error causing serialization exceptions not being correctly logged</p>
+<p style="margin: 0"><b>Version 01.00.02</b></p>
+<p style="margin: 0">- Improvement to avoid self notifications when removing/clearing items</p>
