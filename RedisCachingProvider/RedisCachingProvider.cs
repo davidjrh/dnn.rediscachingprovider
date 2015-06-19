@@ -106,14 +106,12 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 				}
 				else
 				{
-					if (!redisValue.ToString().StartsWith(InstanceUniqueId))
-					{
-						if (redisValue.ToString().Length <= InstanceUniqueId.Length) 
-							instance.Remove(redisValue.ToString().Substring(InstanceUniqueId.Length + 1), false);                     
-						else 
-							instance.Remove(redisValue, false);                     
-						
-					}
+				    if (redisValue.ToString().Length > InstanceUniqueId.Length &&
+				        !redisValue.ToString().StartsWith(InstanceUniqueId))
+				    {
+						instance.Remove(redisValue.ToString().Substring(InstanceUniqueId.Length + 1), false);                     
+				    }
+
 				}
 			}
 			catch (Exception e)
@@ -248,7 +246,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 					}
 					Logger.Info("Notifying cache clearing to other partners...");
 					// Notify the channel
-					RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Clear", RedisChannel.PatternMode.Auto), "");
+                    RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Clear", RedisChannel.PatternMode.Auto), InstanceUniqueId);
 				}
 			}
 			catch (Exception e)
@@ -278,7 +276,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
                     Logger.Info(string.Format("Telling other partners to remove cache key {0}...", key));                    
 					// Notify the channel
-					RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Remove", RedisChannel.PatternMode.Auto), key);
+					RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Remove", RedisChannel.PatternMode.Auto), InstanceUniqueId + "_" + key);
 				}
 			}
 			catch (Exception e)
