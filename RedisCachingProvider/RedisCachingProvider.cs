@@ -98,10 +98,11 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 			{
 				var instance = (RedisCachingProvider) Instance() ?? new RedisCachingProvider();
 				if (redisChannel == KeyPrefix + "Redis.Clear")
-				{				
-					if (redisValue != InstanceUniqueId) // Avoid to clear twice
+				{
+				    var values = redisValue.ToString().Split(':');
+					if (values.Length == 3 && values[0] != InstanceUniqueId) // Avoid to clear twice
 					{
-						instance.Clear("", "", false);                        
+						instance.Clear(values[1], values[2], false);                        
 					}
 				}
 				else
@@ -221,13 +222,13 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 		{
 			try
 			{
-				Logger.Info("Clearing local cache...");                
+				Logger.Info($"{InstanceUniqueId} - Clearing local cache (type:{type}; data:{data})...");                
 				// Clear internal cache
 				ClearCacheInternal(type, data, true);
 
 				if (notifyRedis) // Avoid recursive calls
 				{
-					Logger.Info("Clearing Redis cache...");				
+					Logger.Info($"{InstanceUniqueId} - Clearing Redis cache...");				
 					// Clear Redis cache 
 					var hostAndPort = ConnectionString.Split(',')[0];
 					if (!hostAndPort.Contains(":"))
@@ -244,10 +245,10 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 					{
 						RedisCache.KeyDelete(key);
 					}
-					Logger.Info("Notifying cache clearing to other partners...");
+					Logger.Info($"{InstanceUniqueId} - Notifying cache clearing to other partners...");
 					// Notify the channel
-                    RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Clear", RedisChannel.PatternMode.Auto), InstanceUniqueId);
-				}
+                    RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Clear", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{type}:{data}");
+                }
 			}
 			catch (Exception e)
 			{
@@ -264,17 +265,17 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 		{
 			try
 			{
-				Logger.Info(string.Format("Removing cache key {0}...", key));			
+				Logger.Info($"{InstanceUniqueId} - Removing cache key {key}...");			
 				// Remove from the internal cache
 				RemoveInternal(key);
 
 				if (notifyRedis)
 				{
-					Logger.Info(string.Format("Removing cache key {0} from Redis...", key));				
+					Logger.Info($"{InstanceUniqueId} - Removing cache key {key} from Redis...");				
 					// Remove from Redis cache
 					RedisCache.KeyDelete(KeyPrefix + key);
 
-                    Logger.Info(string.Format("Telling other partners to remove cache key {0}...", key));                    
+                    Logger.Info($"{InstanceUniqueId} - Telling other partners to remove cache key {key}...");                    
 					// Notify the channel
 					RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Remove", RedisChannel.PatternMode.Auto), InstanceUniqueId + "_" + key);
 				}
@@ -389,10 +390,8 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 		}
 
 		private static ILog _logger;
-		private static ILog Logger
-		{
-			get { return _logger ?? (_logger = LoggerSource.Instance.GetLogger(typeof(RedisCachingProvider))); }
-		}
-		#endregion
+		private static ILog Logger => _logger ?? (_logger = LoggerSource.Instance.GetLogger(typeof(RedisCachingProvider)));
+
+	    #endregion
 	}
 }

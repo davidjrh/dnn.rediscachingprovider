@@ -10,3 +10,6 @@ Redis cache. Note that all the objects must be serializable.  If you try to inse
 <p style="margin: 0">- Improvement to avoid self notifications when removing/clearing items</p>
 <p style="margin: 0"><b>Version 01.00.03</b></p>
 <p style="margin: 0">- Fixed buggy merge on 01.00.02 version, missing part of the code improvements</p>
+<p style="margin: 0"><b>Version 01.00.04</b></p>
+<p style="margin: 0">- Changed DotNetNuke references to use nuget.org packages</p>
+<p style="margin: 0">- Fixed a bug causing out of sync caches with multiple servers on Clear cache calls</p>
