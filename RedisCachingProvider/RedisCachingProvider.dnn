@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-	<package name="RedisCachingProvider" type="Provider" version="01.00.04">
+	<package name="RedisCachingProvider" type="Provider" version="01.00.05">
 	  <friendlyName>DNN Redis Caching Provider</friendlyName>
 	  <description>Allows to use a Redis cache server or cluster within DNN, using a hybrid approach mixing in-memory cache plus the shared
       Redis cache</description>
