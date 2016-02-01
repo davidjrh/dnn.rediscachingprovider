@@ -97,22 +97,20 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 			try
 			{
 				var instance = (RedisCachingProvider) Instance() ?? new RedisCachingProvider();
+				var values = redisValue.ToString().Split(':');
 				if (redisChannel == KeyPrefix + "Redis.Clear")
 				{
-				    var values = redisValue.ToString().Split(':');
 					if (values.Length == 3 && values[0] != InstanceUniqueId) // Avoid to clear twice
 					{
 						instance.Clear(values[1], values[2], false);                        
 					}
 				}
-				else
-				{
-				    if (redisValue.ToString().Length > InstanceUniqueId.Length &&
-				        !redisValue.ToString().StartsWith(InstanceUniqueId))
-				    {
-						instance.Remove(redisValue.ToString().Substring(InstanceUniqueId.Length + 1), false);                     
-				    }
-
+                else // Redis.Remove
+                {
+					if (values.Length > 1 && values[0] != InstanceUniqueId) // Avoid to clear twice
+					{
+						instance.Remove(redisValue.ToString().Substring(values[0].Length + 1), false);
+					}
 				}
 			}
 			catch (Exception e)
@@ -277,7 +275,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
                     Logger.Info($"{InstanceUniqueId} - Telling other partners to remove cache key {key}...");                    
 					// Notify the channel
-					RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Remove", RedisChannel.PatternMode.Auto), InstanceUniqueId + "_" + key);
+					RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Remove", RedisChannel.PatternMode.Auto), InstanceUniqueId + ":" + key);
 				}
 			}
 			catch (Exception e)
