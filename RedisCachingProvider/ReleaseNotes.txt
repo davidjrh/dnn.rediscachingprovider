@@ -17,3 +17,5 @@ Redis cache. Note that all the objects must be serializable.  If you try to inse
 <p style="margin: 0">- Added new Redis output caching provider</p>
 <p style="margin: 0">- DNN Platform 8.0 and .NET Framework 4.5.1 or higher is now required</p>
 <p style="margin: 0">- Fixed a remove cache issue when having process IDs with different lengths</p>
+<p style="margin: 0">- Changed manifest to avoid web.config reconfigurations on upgrades</p>
+
