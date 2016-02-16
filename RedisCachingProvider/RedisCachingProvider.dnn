@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-	<package name="RedisCachingProvider" type="Provider" version="01.00.04">
+	<package name="RedisCachingProvider" type="Provider" version="02.00.00">
 	  <friendlyName>DNN Redis Caching Provider</friendlyName>
 	  <description>Allows to use a Redis cache server or cluster within DNN, using a hybrid approach mixing in-memory cache plus the shared
       Redis cache</description>
@@ -15,7 +15,7 @@
 	  <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
     <azureCompatible>true</azureCompatible>
 	  <dependencies>
-		  <dependency type="CoreVersion">07.00.00</dependency>
+		  <dependency type="CoreVersion">08.00.00</dependency>
 	  </dependencies>
 	  
 	  <components>
@@ -36,11 +36,18 @@
 			  <configuration>
 				<nodes>
 				  <node path="/configuration/dotnetnuke/caching" action="updateattribute" name="defaultProvider" value="RedisCachingProvider" />
-				  <node path="/configuration/dotnetnuke/caching/providers" action="update" key="name" collision="overwrite">
-					<add name="RedisCachingProvider"
-								type="DotNetNuke.Providers.RedisCachingProvider.RedisCachingProvider, DotNetNuke.Providers.RedisCachingProvider"
-								providerPath="~\Providers\CachingProviders\RedisCachingProvider\" useCompression="false" silentMode="true" />
+				  <node path="/configuration/dotnetnuke/caching/providers" action="update" key="name" collision="overwrite">                        
+					  <add name="RedisCachingProvider"
+								  type="DotNetNuke.Providers.RedisCachingProvider.RedisCachingProvider, DotNetNuke.Providers.RedisCachingProvider"
+								  providerPath="~\Providers\CachingProviders\RedisCachingProvider\" useCompression="false" silentMode="true" />
 				  </node>
+          <node path="/configuration/dotnetnuke/outputCaching" action="updateattribute" name="defaultProvider" value="RedisOutputCachingProvider" />
+          <node path="/configuration/dotnetnuke/outputCaching/providers" action="update" key="name" collision="overwrite">
+            <add name="RedisOutputCachingProvider"
+								  type="DotNetNuke.Providers.RedisCachingProvider.RedisOutputCachingProvider, DotNetNuke.Providers.RedisCachingProvider"
+								  providerPath="~\Providers\CachingProviders\RedisCachingProvider\" useCompression="false" silentMode="true" />
+          </node>
+
           <node path="/configuration/connectionStrings" action="update" key="name" collision="overwrite">
             <add name="RedisCachingProvider" connectionString="" providerName="DotNetNuke.Providers.RedisCachingProvider" />
           </node>
@@ -52,6 +59,8 @@
 				<nodes>
 				  <node path="/configuration/dotnetnuke/caching" action="updateattribute" name="defaultProvider" value="FileBasedCachingProvider" />
 				  <node path="/configuration/dotnetnuke/caching/providers/add[@name='RedisCachingProvider']" action="remove" />
+          <node path="/configuration/dotnetnuke/outputCaching" action="updateattribute" name="defaultProvider" value="FileOutputCachingProvider" />
+          <node path="/configuration/dotnetnuke/outputCaching/providers/add[@name='RedisOutputCachingProvider']" action="remove" />
           <node path="/configuration/connectionStrings/add[@name='RedisCachingProvider']" action="remove" />
 				</nodes>
 			  </configuration>
@@ -69,10 +78,6 @@
           <path>bin\Providers</path>
           <name>StackExchange.Redis.dll</name>
         </assembly>
-        <assembly>
-          <path>bin\Providers</path>
-          <name>Microsoft.Threading.Tasks.dll</name>
-        </assembly>        
       </assemblies>
 		</component>
 	  </components>

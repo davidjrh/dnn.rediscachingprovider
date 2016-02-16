@@ -13,3 +13,7 @@ Redis cache. Note that all the objects must be serializable.  If you try to inse
 <p style="margin: 0"><b>Version 01.00.04</b></p>
 <p style="margin: 0">- Changed DotNetNuke references to use nuget.org packages</p>
 <p style="margin: 0">- Fixed a bug causing out of sync caches with multiple servers on Clear cache calls</p>
+<p style="margin: 0"><b>Version 02.00.00</b></p>
+<p style="margin: 0">- Added new Redis output caching provider</p>
+<p style="margin: 0">- DNN Platform 8.0 and .NET Framework 4.5.1 or higher is now required</p>
+<p style="margin: 0">- Fixed a remove cache issue when having process IDs with different lengths</p>

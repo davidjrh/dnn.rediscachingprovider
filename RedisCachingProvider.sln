@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisCachingProvider", "RedisCachingProvider\RedisCachingProvider.csproj", "{59BCB968-0D4F-497A-A63B-D3D97A861F15}"
 EndProject
@@ -12,10 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E3338A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{DE1DAAC2-AB6E-4B7D-86CA-4D8DAD74DA07}"
 	ProjectSection(SolutionItems) = preProject
-		RedisCachingProvider\Build.proj = RedisCachingProvider\Build.proj
+		Build.proj = Build.proj
 		RedisCachingProvider\.build\ModulePackage.targets = RedisCachingProvider\.build\ModulePackage.targets
-		RedisCachingProvider\.build\MSBuild.Community.Tasks.dll = RedisCachingProvider\.build\MSBuild.Community.Tasks.dll
-		RedisCachingProvider\.build\MSBuild.Community.Tasks.targets = RedisCachingProvider\.build\MSBuild.Community.Tasks.targets
+		.build\MSBuild.Community.Tasks.dll = .build\MSBuild.Community.Tasks.dll
+		.build\MSBuild.Community.Tasks.targets = .build\MSBuild.Community.Tasks.targets
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisUnitTests", "RedisUnitTests\RedisUnitTests.csproj", "{3E5758D0-C3DF-462E-B401-7287FB12B8DE}"
