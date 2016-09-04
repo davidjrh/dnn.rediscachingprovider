@@ -201,22 +201,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 				if (notifyRedis) // Avoid recursive calls
 				{
                     Shared.Logger.Info($"{InstanceUniqueId} - Clearing Redis cache...");				
-					// Clear Redis cache 
-					var hostAndPort = Shared.ConnectionString.Split(',')[0];
-					if (!hostAndPort.Contains(":"))
-					{
-						if (hostAndPort.ToLower().Contains(".redis.cache.windows.net"))
-							hostAndPort += ":" + Shared.SslDefaultPort;
-						else
-							hostAndPort += ":" + Shared.DefaultPort;    
-					}
-						
-					var server = Connection.GetServer(hostAndPort);
-					var keys = server.Keys(RedisCache.Database, pattern: KeyPrefix + "*", pageSize: 10000);
-					foreach (var key in keys)
-					{
-						RedisCache.KeyDelete(key);
-					}
+                    Shared.ClearRedisCache(RedisCache, $"{KeyPrefix}*");
                     Shared.Logger.Info($"{InstanceUniqueId} - Notifying cache clearing to other partners...");
 					// Notify the channel
                     RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Clear", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{type}:{data}");

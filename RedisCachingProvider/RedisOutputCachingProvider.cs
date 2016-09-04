@@ -249,22 +249,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
                 if (notifyRedis) // Avoid recursive calls
                 {
                     Shared.Logger.Info($"{InstanceUniqueId} - Clearing Redis output cache...");
-                    // Clear Redis cache 
-                    var hostAndPort = Shared.ConnectionString.Split(',')[0];
-                    if (!hostAndPort.Contains(":"))
-                    {
-                        if (hostAndPort.ToLower().Contains(".redis.cache.windows.net"))
-                            hostAndPort += ":" + Shared.SslDefaultPort;
-                        else
-                            hostAndPort += ":" + Shared.DefaultPort;
-                    }
-
-                    var server = Connection.GetServer(hostAndPort);
-                    var keys = server.Keys(RedisCache.Database, pattern: $"{KeyPrefix}{CachePrefix}*", pageSize: 10000);
-                    foreach (var key in keys)
-                    {
-                        RedisCache.KeyDelete(key);
-                    }
+                    Shared.ClearRedisCache(RedisCache, $"{KeyPrefix}{CachePrefix}*");
                     Shared.Logger.Info($"{InstanceUniqueId} - Notifying output cache clearing to other partners...");
                     // Notify the channel
                     RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Output.Clear", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{portalId}");
@@ -301,22 +286,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
                 if (notifyRedis) // Avoid recursive calls
                 {
                     Shared.Logger.Info($"{InstanceUniqueId} - Removing Redis output cache: {tabId}...");
-                    // Clear Redis cache 
-                    var hostAndPort = Shared.ConnectionString.Split(',')[0];
-                    if (!hostAndPort.Contains(":"))
-                    {
-                        if (hostAndPort.ToLower().Contains(".redis.cache.windows.net"))
-                            hostAndPort += ":" + Shared.SslDefaultPort;
-                        else
-                            hostAndPort += ":" + Shared.DefaultPort;
-                    }
-
-                    var server = Connection.GetServer(hostAndPort);
-                    var keys = server.Keys(RedisCache.Database, pattern: $"{KeyPrefix}{CachePrefix}{tabId}_*", pageSize: 10000);
-                    foreach (var key in keys)
-                    {
-                        RedisCache.KeyDelete(key);
-                    }
+                    Shared.ClearRedisCache(RedisCache, $"{KeyPrefix}{CachePrefix}{tabId}_*");
                     Shared.Logger.Info($"{InstanceUniqueId} - Notifying output cache removal to other partners: {tabId}...");
                     // Notify the channel
                     RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Output.Remove", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{tabId}");

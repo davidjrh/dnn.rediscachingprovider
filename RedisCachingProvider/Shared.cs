@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using DotNetNuke.Common.Utilities;
 using System.Configuration;
 using DotNetNuke.Instrumentation;
+using StackExchange.Redis;
 
 
 namespace DotNetNuke.Providers.RedisCachingProvider
@@ -16,8 +17,6 @@ namespace DotNetNuke.Providers.RedisCachingProvider
     internal static class Shared
     {
         internal const bool DefaultUseCompression = false;
-        internal const string DefaultPort = "6379";
-        internal const string SslDefaultPort = "6380";
 
         internal static string GetProviderConfigAttribute(string providerName, string attributeName, string defaultValue = "")
         {
@@ -111,6 +110,17 @@ namespace DotNetNuke.Providers.RedisCachingProvider
                 }
             }
             return DeSerializeXmlBinary(outb);
+        }
+
+        internal static void ClearRedisCache(IDatabase redisCache, string cacheKeyPattern)
+        {
+            // Run Lua script to clear cache on Redis server.
+            // Lua script cannot unpack large list, so it have to unpack not over 1000 keys per a loop
+            var script = "local keys = redis.call('keys', '" + cacheKeyPattern + "') " +
+                         "if keys and #keys > 0 then " +
+                         "for i=1,#keys,1000 do redis.call('del', unpack(keys, i, math.min(i+999, #keys))) end return #keys " +
+                         "else return 0 end";
+            var result = redisCache.ScriptEvaluate(script);
         }
 
         internal static bool ProcessException(string providerName, Exception e, string key = "", object value = null)

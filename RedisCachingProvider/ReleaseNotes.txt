@@ -18,4 +18,9 @@ Redis cache. Note that all the objects must be serializable.  If you try to inse
 <p style="margin: 0">- DNN Platform 8.0 and .NET Framework 4.5.1 or higher is now required</p>
 <p style="margin: 0">- Fixed a remove cache issue when having process IDs with different lengths</p>
 <p style="margin: 0">- Changed manifest to avoid web.config reconfigurations on upgrades</p>
-
+<p style="margin: 0"><b>Version 02.01.00</b></p>
+<p style="margin: 0">- Changed the redis clear by using LUA script to loop server side to clear cache</p>
+<p style="margin: 0">- Fixed a problem parsing redis message when keyPrefix includes :</p>
+<p style="margin: 0">- Fixed typo in Redis event name that prevents clearing cache in multiserver environment.</p>
+<p style="margin: 0">- Updated StackExchange.Redis library to v1.1.603</p>
+<p style="margin: 0">- Fixed an issue causing OuputCachingProvider config attributes being ignored</p>
