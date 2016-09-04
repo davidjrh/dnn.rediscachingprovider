@@ -267,7 +267,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
                     }
                     Shared.Logger.Info($"{InstanceUniqueId} - Notifying output cache clearing to other partners...");
                     // Notify the channel
-                    RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Ouput.Clear", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{portalId}");
+                    RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Output.Clear", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{portalId}");
                 }
             }
             catch (Exception e)
@@ -319,7 +319,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
                     }
                     Shared.Logger.Info($"{InstanceUniqueId} - Notifying output cache removal to other partners: {tabId}...");
                     // Notify the channel
-                    RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Ouput.Remove", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{tabId}");
+                    RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Output.Remove", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{tabId}");
                 }
             }
             catch (Exception e)
