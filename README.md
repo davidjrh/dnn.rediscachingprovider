@@ -10,9 +10,9 @@ Provision a Redis cache to be used by your DNN instance. Perhaps one of the fast
 </li>
 <li>Download from the https://github.com/davidjrh/dnn.rediscachingprovider/tree/master/Release folder the latest version of the DNN Redis Caching provider</li>
 <li>Using the Extensions page of your DNN instance, upload and install the Redis caching provider. Once installed, will be the default caching provider. </li>
-<li>Open your web.config file and specify the RedisCachingProvider connection string in the ConnectionStrings section. If you are using Azure Redis cache, your connection string should look like this:
-</li>
+<li>Open your web.config file and specify the RedisCachingProvider connection string in the ConnectionStrings section. </li>
 </ol>
+If you are using Azure Redis cache, your connection string should look like this:
 ```xml
   <connectionStrings>
     <add name="RedisCachingProvider" 
@@ -20,6 +20,16 @@ Provision a Redis cache to be used by your DNN instance. Perhaps one of the fast
     providerName="DotNetNuke.Providers.RedisCachingProvider" />
   </connectionStrings>
 ```
+
+If you are using Local Redis cache, your connection string should look like this:
+```xml
+  <connectionStrings>
+    <add name="RedisCachingProvider" 
+    connectionString="Localhost"  
+    providerName="DotNetNuke.Providers.RedisCachingProvider" />
+  </connectionStrings>
+```
+
 
 <h3>Advanced configuration</h3>
 There are some attributes you can use to tweak or debug the caching provider. The initial set of configurable attributes are:
