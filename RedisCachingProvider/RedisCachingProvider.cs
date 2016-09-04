@@ -62,9 +62,11 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 				if (redisChannel == KeyPrefix + "Redis.Clear")
 				{
 				    var values = redisValue.ToString().Split(':');
-					if (values.Length == 3 && values[0] != InstanceUniqueId) // Avoid to clear twice
+					if (values.Length >= 3 && !redisValue.ToString().StartsWith(InstanceUniqueId)) // Avoid to clear twice
 					{
-						instance.Clear(values[1], values[2], false);                        
+						var type = values[values.Length - 2];
+						var data = values[values.Length - 1];
+						instance.Clear(type, data, false);
 					}
 				}
 				else
