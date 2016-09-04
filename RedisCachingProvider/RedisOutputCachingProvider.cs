@@ -19,7 +19,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
     {
         #region Private Members
 
-        private const string ProviderName = "RedisOutputCachingProvider";
+        internal const string ProviderName = "RedisOutputCachingProvider";
         protected const string cachePrefix = "DNN_OUTPUT:";
         private static Cache runtimeCache;
         internal static Cache Cache

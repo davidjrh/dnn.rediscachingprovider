@@ -13,7 +13,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
 		#region Private Members
 
-		private const string ProviderName = "RedisCachingProvider";
+		internal const string ProviderName = "RedisCachingProvider";
 
         private static bool UseCompression
 		{

@@ -21,7 +21,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
         internal static string GetProviderConfigAttribute(string providerName, string attributeName, string defaultValue = "")
         {
-            var provider = Config.GetProvider("caching", providerName);
+            var provider = Config.GetProvider(providerName == RedisCachingProvider.ProviderName ? "caching" : "outputCaching", providerName);
             if (provider != null && provider.Attributes.AllKeys.Contains(attributeName))
                 return provider.Attributes[attributeName];
             return defaultValue;
