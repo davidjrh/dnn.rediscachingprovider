@@ -74,7 +74,12 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 				    if (redisValue.ToString().Length > InstanceUniqueId.Length &&
 				        !redisValue.ToString().StartsWith(InstanceUniqueId))
 				    {
-						instance.Remove(redisValue.ToString().Substring(InstanceUniqueId.Length + 1), false);                     
+
+                        int at = redisValue.ToString().IndexOf(":");
+                        if (at != -1)
+                        {
+                            instance.Remove(redisValue.ToString().Substring(at + 1), false);
+                        }
 				    }
 
 				}
@@ -249,7 +254,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
                     Shared.Logger.Info($"{InstanceUniqueId} - Telling other partners to remove cache key {key}...");                    
 					// Notify the channel
-					RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Remove", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}_{key}");
+					RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Remove", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{key}");
 				}
 			}
 			catch (Exception e)
