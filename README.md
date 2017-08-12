@@ -13,6 +13,7 @@ Provision a Redis cache to be used by your DNN instance. Perhaps one of the fast
 <li>Open your web.config file and specify the RedisCachingProvider connection string in the ConnectionStrings section. </li>
 </ol>
 If you are using Azure Redis cache, your connection string should look like this:
+
 ```xml
   <connectionStrings>
     <add name="RedisCachingProvider" 
