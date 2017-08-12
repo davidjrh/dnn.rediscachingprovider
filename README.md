@@ -40,6 +40,7 @@ There are some attributes you can use to tweak or debug the caching provider. Th
 <li><i>silentMode</i> (boolean, default true): when the silent mode is set to true and an exception occurs, is logged on the DNN instance log files under "/Portals/_default/Logs" and not raising an exception. Note that the in-memory cache is used before the Redis cache, so the site normally will continue working, but can end in out of sync caches. Keep an eye on the log files to verify that everything is working fine.</li>
 </ul>
 These attributes must be specified in the caching provider definition element in the web.config, not in the connection string element. Example:
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
