@@ -114,13 +114,8 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
         internal static void ClearRedisCache(IDatabase redisCache, string cacheKeyPattern)
         {
-            // Run Lua script to clear cache on Redis server.
-            // Lua script cannot unpack large list, so it have to unpack not over 1000 keys per a loop
-            var script = "local keys = redis.call('keys', '" + cacheKeyPattern + "') " +
-                         "if keys and #keys > 0 then " +
-                         "for i=1,#keys,1000 do redis.call('del', unpack(keys, i, math.min(i+999, #keys))) end return #keys " +
-                         "else return 0 end";
-            var result = redisCache.ScriptEvaluate(script);
+            var script = "for _,k in ipairs(redis.call('keys', ARGV[1])) do redis.call('del', k) end";
+            redisCache.ScriptEvaluate(script, null, new RedisValue[] { cacheKeyPattern });
         }
 
         internal static bool ProcessException(string providerName, Exception e, string key = "", object value = null)
