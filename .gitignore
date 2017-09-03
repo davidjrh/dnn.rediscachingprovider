@@ -3,3 +3,7 @@ TestResults
 bin
 install
 obj
+node_modules
+Release
+/RedisCachingProvider/install
+/.vs

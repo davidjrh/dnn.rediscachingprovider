@@ -24,3 +24,8 @@ Redis cache. Note that all the objects must be serializable.  If you try to inse
 <p style="margin: 0">- Fixed typo in Redis event name that prevents clearing cache in multiserver environment.</p>
 <p style="margin: 0">- Updated StackExchange.Redis library to v1.1.603</p>
 <p style="margin: 0">- Fixed an issue causing OuputCachingProvider config attributes being ignored</p>
+<p style="margin: 0"><b>Version 03.00.00</b></p>
+<p style="margin: 0">- Changed the minimum required DNN version to 9.0.1</p>
+<p style="margin: 0">- Refreshed nuget packages including the latest version of StackExchange.Redis 1.2.6</p>
+<p style="margin: 0">- Added configuration UI in the Persona Bar</p>
+

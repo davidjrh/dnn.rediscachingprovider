@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\Websites\dnn80.dnndev.me\bin\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,28 +35,54 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetNuke, Version=8.0.0.809, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetNuke.Core.8.0.0.809\lib\net40\DotNetNuke.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Dnn.PersonaBar.Library, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dnn.PersonaBar.Library.1.1.0.67\lib\net45\Dnn.PersonaBar.Library.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetNuke.Instrumentation, Version=8.0.0.809, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetNuke.Instrumentation.8.0.0.809\lib\net40\DotNetNuke.Instrumentation.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="DotNetNuke, Version=9.0.1.142, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetNuke.Core.9.0.1.142\lib\net40\DotNetNuke.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.Instrumentation, Version=9.0.1.142, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetNuke.Instrumentation.9.0.1.142\lib\net40\DotNetNuke.Instrumentation.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.Log4Net, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetNuke.Instrumentation.9.0.1.142\lib\net40\DotNetNuke.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.Web, Version=9.0.1.142, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetNuke.Web.9.0.1.142\lib\net40\DotNetNuke.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.Web.Client, Version=9.0.1.142, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetNuke.Web.Client.9.0.1.142\lib\net40\DotNetNuke.Web.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetNuke.Web.9.0.1.142\lib\net40\DotNetNuke.WebUtility.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetNuke.Core.8.0.0.809\lib\net40\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <HintPath>..\packages\DotNetNuke.Core.9.0.1.142\lib\net40\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="StackExchange.Redis, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StackExchange.Redis.1.1.603\lib\net45\StackExchange.Redis.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,22 +90,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\MenuController.cs" />
     <Compile Include="RedisCachingProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedisOutputCachingProvider.cs" />
     <Compile Include="RedisResponseFilter.cs" />
+    <Compile Include="Services\RedisCachingController.cs" />
+    <Compile Include="Services\RedisCachingProviderSettings.cs" />
     <Compile Include="Shared.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
-    <None Include="RedisCachingProvider.dnn" />
+    <None Include="RedisCachingProvider.dnn">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\Redis.png" />
-    <Content Include="License.txt" />
+    <Content Include="admin\personaBar\RedisCaching.html" />
+    <Content Include="admin\personaBar\css\RedisCaching.css" />
+    <Content Include="admin\personaBar\scripts\RedisCaching.js" />
+    <Content Include="admin\personaBar\scripts\bundles\bundle-en.js" />
+    <Content Include="RedisCachingLicense.txt" />
     <Content Include="ReleaseNotes.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="admin\personaBar\App_LocalResources\RedisCaching.resx" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <Extension>zip</Extension>
@@ -90,15 +131,31 @@
   <Import Project=".build\ModulePackage.Targets" />
   <Target Name="AfterBuild" DependsOnTargets="PackageModule">
   </Target>
-  <Import Project="..\packages\MSBuildTasks.1.5.0.196\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.196\build\MSBuildTasks.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(TargetDir)$(TargetName).* c:\websites\dnn911.dnndev.me\bin /Y
+xcopy $(ProjectDir)admin\personabar\*.* C:\Websites\dnn911.dnndev.me\DesktopModules\Admin\Dnn.PersonaBar\Modules\Dnn.RedisCaching /s /Y</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.196\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.196\build\MSBuildTasks.targets'))" />
+    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
   </Target>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+  <UsingTask TaskName="SetEnvironmentVariableTask" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <Name ParameterType="System.String" Required="true" />
+      <Value ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        Environment.SetEnvironmentVariable(Name, Value);
+      ]]></Code>
+    </Task>
+  </UsingTask>
+  <Target Name="SampleTarget" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
+    <SetEnvironmentVariableTask Name="NODE_ENV" Value="production" />
+    <Exec Command="webpack -p" WorkingDirectory="RedisCaching.Web" />
+  </Target>
 </Project>
