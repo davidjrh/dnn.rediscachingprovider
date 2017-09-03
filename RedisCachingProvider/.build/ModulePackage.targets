@@ -44,6 +44,7 @@
     <!--$(MSBuildDnnBinPath)\$(AssemblyName).dll -->
 
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin\Providers"/>
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="$(MSBuildDnnBinPath)\StackExchange.Redis.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin\Providers"/>
     <Copy SourceFiles="@(SqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(PackageManifestFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />

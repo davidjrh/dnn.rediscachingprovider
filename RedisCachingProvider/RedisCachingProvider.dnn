@@ -59,13 +59,11 @@
 			<install>
 			  <configuration>
 				<nodes>
-<!--				  <node path="/configuration/dotnetnuke/caching" action="updateattribute" name="defaultProvider" value="RedisCachingProvider" />-->
 				  <node path="/configuration/dotnetnuke/caching/providers" action="update" key="name" collision="ignore">                        
 					  <add name="RedisCachingProvider"
 								  type="DotNetNuke.Providers.RedisCachingProvider.RedisCachingProvider, DotNetNuke.Providers.RedisCachingProvider"
 								  providerPath="~\Providers\CachingProviders\RedisCachingProvider\" useCompression="false" silentMode="true" />
 				  </node>
-<!--          <node path="/configuration/dotnetnuke/outputCaching" action="updateattribute" name="defaultProvider" value="RedisOutputCachingProvider" />-->
           <node path="/configuration/dotnetnuke/outputCaching/providers" action="update" key="name" collision="ignore">
             <add name="RedisOutputCachingProvider"
 								  type="DotNetNuke.Providers.RedisCachingProvider.RedisOutputCachingProvider, DotNetNuke.Providers.RedisCachingProvider"
@@ -93,7 +91,7 @@
 		</component>
 		<component type="Assembly">
 		  <assemblies>
-			  <basePath>bin\Providers</basePath>
+			  <basePath>bin</basePath>
 			  <assembly>
           <path>bin\Providers</path>
 			    <name>DotNetNuke.Providers.RedisCachingProvider.dll</name>
@@ -102,6 +100,10 @@
           <path>bin\Providers</path>
           <name>StackExchange.Redis.dll</name>
         </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>DotNetNuke.Providers.RedisCachingProvider.dll</name>
+        </assembly>        
       </assemblies>
 		</component>
 	  </components>
