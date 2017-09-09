@@ -28,4 +28,5 @@ Redis cache. Note that all the objects must be serializable.  If you try to inse
 <p style="margin: 0">- Changed the minimum required DNN version to 9.0.1</p>
 <p style="margin: 0">- Refreshed nuget packages including the latest version of StackExchange.Redis 1.2.6</p>
 <p style="margin: 0">- Added configuration UI in the Persona Bar</p>
+<p style="margin: 0">- The Redis client automatically reconnects after a Redis connection failure</p>
 
