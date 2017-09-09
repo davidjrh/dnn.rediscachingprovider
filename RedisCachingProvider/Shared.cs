@@ -36,6 +36,10 @@ namespace DotNetNuke.Providers.RedisCachingProvider
                     throw new ConfigurationErrorsException(
                         "The Redis connection string can't be an empty string. Check the RedisCachingProvider connectionString attribute in your web.config file.");
                 }
+                if (!cs.ConnectionString.ToLowerInvariant().Contains(",abortconnect="))
+                {
+                    cs.ConnectionString += ",abortConnect=false";
+                }
                 return cs.ConnectionString;
             }
         }
