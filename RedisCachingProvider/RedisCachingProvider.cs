@@ -32,7 +32,10 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 					{
 						hostGuid = Entities.Host.Host.GUID;
 					}
-					_keyPrefix = string.Format("{0}_", Shared.GetProviderConfigAttribute(ProviderName, "keyPrefix", hostGuid));
+				    _keyPrefix = Shared.GetProviderConfigAttribute(ProviderName, "keyPrefix", hostGuid);
+				    if (string.IsNullOrEmpty(_keyPrefix))
+				        _keyPrefix = hostGuid;
+                    _keyPrefix = $"{_keyPrefix}_";
 				}
 				return _keyPrefix;
 			} 
