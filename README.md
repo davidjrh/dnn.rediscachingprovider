@@ -33,6 +33,7 @@ If you are using Local Redis cache, your connection string should look like this
   </connectionStrings>
 ```
 
+To know more about the diffrerent connection string options, check https://stackexchange.github.io/StackExchange.Redis/Configuration
 
 <h3>Advanced configuration</h3>
 There are some attributes you can use to tweak or debug the caching provider. The initial set of configurable attributes are:
