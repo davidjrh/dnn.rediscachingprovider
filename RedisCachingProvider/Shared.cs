@@ -31,16 +31,17 @@ namespace DotNetNuke.Providers.RedisCachingProvider
             get
             {
                 var cs = ConfigurationManager.ConnectionStrings["RedisCachingProvider"];
-                if (cs == null || string.IsNullOrEmpty(cs.ConnectionString))
+                if (string.IsNullOrEmpty(cs?.ConnectionString))
                 {
                     throw new ConfigurationErrorsException(
                         "The Redis connection string can't be an empty string. Check the RedisCachingProvider connectionString attribute in your web.config file.");
                 }
-                if (!cs.ConnectionString.ToLowerInvariant().Contains(",abortconnect="))
+                var connectionString = cs.ConnectionString;
+                if (!connectionString.ToLowerInvariant().Contains(",abortconnect="))
                 {
-                    cs.ConnectionString += ",abortConnect=false";
+                    connectionString += ",abortConnect=false";
                 }
-                return cs.ConnectionString;
+                return connectionString;
             }
         }
 
