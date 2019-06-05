@@ -1,12 +1,7 @@
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import PersonaBarPage from "dnn-persona-bar-page";
-import PersonaBarPageHeader from "dnn-persona-bar-page-header";
-import PersonaBarPageBody from "dnn-persona-bar-page-body";
-import Button from "dnn-button";
-import SingleLineInputWithError from "dnn-single-line-input-with-error";
-import Label from "dnn-label";
-import Switch from "dnn-switch";
+import {PersonaBarPage, PersonaBarPageHeader, PersonaBarPageBody, Button, SingleLineInputWithError, Label, Switch} from "@dnnsoftware/dnn-react-common";
 import resx from "../resources";
 import util from "../utils";
 import {
@@ -37,7 +32,7 @@ class App extends Component {
         };
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const {props} = this;
 
         if (props.settingsLoaded) {
@@ -56,7 +51,7 @@ class App extends Component {
         props.dispatch(SettingsActions.getSettings());        
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         this.setState({
             connectionString: props.connectionString,
             cachingProviderEnabled: props.cachingProviderEnabled,
@@ -99,7 +94,7 @@ class App extends Component {
         
         state.error["connectionString"] = (state.cachingProviderEnabled || state.outputCachingProviderEnabled) && state.connectionString.trim().length === 0;
 
-        let pattern = /^[0-9a-zA-Z\-\_]{1,20}$/i;            
+        let pattern = /^[0-9a-zA-Z\-_]{1,20}$/i;            
         state.error["keyPrefix"] = state.keyPrefix.length > 0 && !pattern.test(state.keyPrefix);
         
         this.setState({
@@ -189,8 +184,7 @@ class App extends Component {
                             <div className="left">
                                 <Switch labelHidden={true}
                                     value={state.cachingProviderEnabled}
-                                    onChange={this.onSettingChange.bind(this, "CachingProviderEnabled") }
-                                    />
+                                    onChange={this.onSettingChange.bind(this, "CachingProviderEnabled") }/>
                             </div>
                         </div>
 
@@ -199,8 +193,7 @@ class App extends Component {
                             <div className="left">
                                 <Switch labelHidden={true}
                                     value={state.outputCachingProviderEnabled}
-                                    onChange={this.onSettingChange.bind(this, "OutputCachingProviderEnabled") }
-                                    />
+                                    onChange={this.onSettingChange.bind(this, "OutputCachingProviderEnabled") } />
                             </div>
                         </div>                                                                    
 
@@ -212,8 +205,7 @@ class App extends Component {
                                 error={this.state.error.connectionString}
                                 errorMessage={resx.get("plConnectionString.Help")}                                
                                 value={state.connectionString || ""}
-                                onChange={this.onSettingChange.bind(this, "ConnectionString") }
-                                />
+                                onChange={this.onSettingChange.bind(this, "ConnectionString") } />
                         </div>
 
                         <h3>Advanced settings</h3>
@@ -226,8 +218,7 @@ class App extends Component {
                             <div className="left">
                                 <Switch labelHidden={true}
                                     value={state.useCompression}
-                                    onChange={this.onSettingChange.bind(this, "UseCompression") }
-                                    />
+                                    onChange={this.onSettingChange.bind(this, "UseCompression") } />
                             </div>
                         </div>  
 
@@ -236,8 +227,7 @@ class App extends Component {
                             <div className="left">
                                 <Switch labelHidden={true}
                                     value={state.silentMode}
-                                    onChange={this.onSettingChange.bind(this, "SilentMode") }
-                                    />
+                                    onChange={this.onSettingChange.bind(this, "SilentMode") } />
                             </div>
                         </div>  
                         <p>Finally, you can specify a key prefix to set on all the cached items, 
@@ -249,8 +239,7 @@ class App extends Component {
                                 error={this.state.error.keyPrefix}
                                 errorMessage={resx.get("plKeyPrefix.Help")}                                
                                 value={state.keyPrefix || ""}
-                                onChange={this.onSettingChange.bind(this, "KeyPrefix") }
-                                />
+                                onChange={this.onSettingChange.bind(this, "KeyPrefix") } />
                         </div>                        
 
                         <div className="buttons-box">

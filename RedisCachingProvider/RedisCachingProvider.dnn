@@ -1,21 +1,21 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-	<package name="RedisCachingProvider" type="Provider" version="03.00.01">
+	<package name="RedisCachingProvider" type="Provider" version="03.01.00">
 	  <friendlyName>DNN Redis Caching Provider</friendlyName>
 	  <description>Allows to use a Redis cache server or cluster within DNN, using a hybrid approach mixing in-memory cache plus the shared
       Redis cache</description>
 	  <iconFile>~/Providers/CachingProviders/RedisCachingProvider/images/Redis.png</iconFile>      
 	  <owner>
 		<name>David Rodriguez</name>
-		<organization>David Rodriguez</organization>
-		<url>http://davidjrh.intelequia.com</url>
-		<email>davidjrh@hotmail.com</email>
+		<organization>Intelequia Software Solutions</organization>
+		<url>https://intelequia.com</url>
+		<email>support@intelequia.com</email>
 	  </owner>
 	  <license src="RedisCachingLicense.txt"></license>
 	  <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
     <azureCompatible>true</azureCompatible>
 	  <dependencies>
-	    <dependency type="CoreVersion">09.00.01</dependency>
+	    <dependency type="CoreVersion">09.03.00</dependency>
 	    <dependency type="ManagedPackage" version="01.00.00">Dnn.PersonaBar.UI</dependency>
 	  </dependencies>
 	  
