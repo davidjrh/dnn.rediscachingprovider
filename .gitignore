@@ -8,3 +8,5 @@ Release
 /RedisCachingProvider/install
 /.vs
 /RedisCachingProvider/admin/personaBar/scripts/bundles/bundle-en.js.map
+.DS_Store
+RedisCachingProvider/.DS_Store
