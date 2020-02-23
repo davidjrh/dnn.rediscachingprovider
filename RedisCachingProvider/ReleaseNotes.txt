@@ -34,4 +34,13 @@ Redis cache. Note that all the objects must be serializable.  If you try to inse
 <p style="margin: 0">- Fixed an issue causing not adding the default keyPrefix when empty</p>
 <p style="margin: 0"><strong>Version 03.01.00</strong></p>
 <p style="margin: 0">- Updated persona bar module to be 9.3.x compatible</p>
+<p style="margin: 0"><strong>Version 04.00.00</strong></p>
+<p style="margin: 0">- Updated DotNetNuke to 9.3.2.0</p>
+<p style="margin: 0">- Updated DotNetNuke.Instrumentation to 9.3.2</p>
+<p style="margin: 0">- Updated DotNetNuke.Web to 9.3.2</p>
+<p style="margin: 0">- Updated DotNetNuke.Web.Client to 9.3.2</p>
+<p style="margin: 0">- Updated DotNetNuke.DependencyInjection to 9.4.4</p>
+<p style="margin: 0">- Updated StackExchange.Redis to 2.0.601</p>
+<p style="margin: 0">- Updated Newtonsoft.Json to 12.0.3</p>
+<p style="margin: 0">- Updated Microsoft.AspNet.WebApi to 5.2.7</p>
 
