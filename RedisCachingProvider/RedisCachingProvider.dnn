@@ -103,7 +103,57 @@
         <assembly>
           <path>bin</path>
           <name>DotNetNuke.Providers.RedisCachingProvider.dll</name>
-        </assembly>        
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>Microsoft.Bcl.AsyncInterfaces.dll</name>
+          <version>5.0.20.51904</version>
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>Pipelines.Sockets.Unofficial.dll</name>
+          <version>2.2.0.45337</version>
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>System.Buffers.dll</name>
+          <version>4.6.28619.1</version>
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>System.Diagnostics.PerformanceCounter.dll</name>
+          <version>5.0.20.51904</version>
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>System.IO.PipeLines.dll</name>
+          <version>5.0.20.51904</version>
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>System.Memory.dll</name>
+          <version>4.6.28619.1</version>
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>System.Numerics.Vectors.dll</name>
+          <version>4.6.26515.6</version>
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>System.Runtime.CompilerServices.Unsafe.dll</name>
+          <version>4.6.28619.1</version>
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>System.Threading.Channels.dll</name>
+          <version>5.0.20.51904</version>
+        </assembly>
+        <assembly>
+          <path>bin</path>
+          <name>System.Threading.Tasks.Extensions.dll</name>
+          <version>4.6.28619.1</version>
+        </assembly>
       </assemblies>
 		</component>
 	  </components>
