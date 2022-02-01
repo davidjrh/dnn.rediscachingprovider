@@ -51,14 +51,14 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
         internal static string Serialize(object source)
         {
-            return SerializeJSON(source);
-            //return SerializeBinary(source);
+            // SerializeJSON(source);
+            return SerializeBinary(source);
         }
 
         internal static T Deserialize<T>(string base64String)
         {
-            return DeserializeJSON<T>(base64String);
-            //return DeserializeBinary<T>(base64String);
+            //return DeserializeJSON<T>(base64String);
+            return DeserializeBinary<T>(base64String);
         }
 
         internal static string SerializeBinary(object source)
