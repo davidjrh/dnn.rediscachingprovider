@@ -10,6 +10,6 @@ namespace RedisUnitTests
 
     public class Item
     {
-        public string Name = "Item name";
+        public object Name;// = "Item name";
     }
 }

@@ -67,7 +67,7 @@ namespace RedisUnitTests
             Exception serialEx = null;
             try
             {
-                var obj = new NonSerializableClass();
+                var obj = new object();// new NonSerializableClass();
                 var cache = new RedisCachingProvider();
                 cache.Insert("MyItem1", obj); // silentMode=false on app.config                
             }
