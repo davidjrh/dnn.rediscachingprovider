@@ -92,7 +92,7 @@ From the command line, enter the `<RepoRoot>\RedisCachingProvider\RedisCaching.W
 ```
 
 ### Build the module
-Now you can build the solution by opening the RedisCachingProvider.sln file on Visual Studio 2017. Building the solution in "Release", will generate the React bundle and package it all together with the installation zip file, created under the "\releases" folder.
+Now you can build the solution by opening the RedisCachingProvider.sln file on Visual Studio. Building the solution in "Release", will generate the React bundle and package it all together with the installation zip file, created under the "\releases" folder.
 
 On the Visual Studio output window you should see something like this:
 ```
