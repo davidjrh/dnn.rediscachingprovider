@@ -10,7 +10,9 @@ using DotNetNuke.Common.Utilities;
 using System.Configuration;
 using DotNetNuke.Instrumentation;
 using StackExchange.Redis;
-
+using System.Runtime.InteropServices.ComTypes;
+using Newtonsoft.Json.Bson;
+using Newtonsoft.Json;
 
 namespace DotNetNuke.Providers.RedisCachingProvider
 {
@@ -49,18 +51,76 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
         internal static string Serialize(object source)
         {
-            IFormatter formatter = new BinaryFormatter();
-            var stream = new MemoryStream();
-            formatter.Serialize(stream, source);
-            return Convert.ToBase64String(stream.ToArray());
+            // SerializeJSON(source);
+            return SerializeBinary(source);
         }
 
         internal static T Deserialize<T>(string base64String)
         {
-            var stream = new MemoryStream(Convert.FromBase64String(base64String));
+            //return DeserializeJSON<T>(base64String);
+            return DeserializeBinary<T>(base64String);
+        }
+
+        internal static string SerializeBinary(object source)
+        {
             IFormatter formatter = new BinaryFormatter();
-            stream.Position = 0;
-            return (T)formatter.Deserialize(stream);
+            using (var stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, source);
+                return Convert.ToBase64String(stream.ToArray());
+            }
+        }
+
+        internal static T DeserializeBinary<T>(string base64String)
+        {
+            using (var stream = new MemoryStream(Convert.FromBase64String(base64String)))
+            {
+                IFormatter formatter = new BinaryFormatter();
+                stream.Position = 0;
+                return (T)formatter.Deserialize(stream);
+            }
+        }
+
+        internal static string SerializeJSON(object source)
+        {
+            if (source == null)
+                throw new NullReferenceException();
+
+            string json = JsonConvert.SerializeObject(source);
+
+            if (string.IsNullOrEmpty(json) || json == "{}")
+                throw new SerializationException();
+
+            return Base64Encode(json);
+        }
+
+        internal static T DeserializeJSON<T>(string base64String)
+        {
+            T res = JsonConvert.DeserializeObject<T>(Base64Decode(base64String));
+            return res;
+
+            byte[] data = Convert.FromBase64String(base64String);
+            using (var stream = new MemoryStream(data))
+            {
+                using (JsonTextReader reader = new JsonTextReader(new StreamReader(stream)))
+                {
+                    JsonSerializer serializer = JsonSerializer.CreateDefault();
+
+                    return serializer.Deserialize<T>(reader);
+                }
+            }
+        }
+
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        public static string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
         internal static byte[] SerializeXmlBinary(object obj)
