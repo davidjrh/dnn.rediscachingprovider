@@ -68,26 +68,31 @@ These attributes must be specified in the caching provider definition element in
 </configuration>
 ```
 
-
-## Building the solution
+# Building the solution
 ### Requirements
-* Visual Studio 2017 (download from https://www.visualstudio.com/downloads/)
+* Visual Studio 2022 (download from https://www.visualstudio.com/downloads/)
 * npm package manager (download from https://www.npmjs.com/get-npm)
 
-### Configure local npm to use the DNN public repository
-From the command line, the following command must be executed:
-```
-   npm config set registry https://www.myget.org/F/dnn-software-public/npm/
-```
 ### Install package dependencies
-From the comman line, enter the <RepoRoot>\RedisCachingProvider\RedisCaching.Web and run the following commands:
+From the command line, enter the `<RepoRoot>\RedisCachingProvider\RedisCaching.Web` and run the following commands:
 ```
   npm install -g webpack
-  npm install
+  npm install -g webpack-cli
+  npm install -g webpack-dev-server --force
+  npm install --force
+```
+
+### Debug the client side app
+To debug the client side, build the module in debug mode and copy the .dll and .pdb files into your site /bin folder (you can tweak the post build event for such purpose). That will try to load the persona bar bundle script from https://localhost:8080. 
+
+The second step is to start the local webpack dev server. To do it, 
+From the command line, enter the `<RepoRoot>\RedisCachingProvider\RedisCaching.Web` and run the following commands:
+```
+  webpack-dev-server
 ```
 
 ### Build the module
-Now you can build the solution by opening the RedisCachingProvider.sln file on Visual Studio 2017. Building the solution in "Release", will generate the React bundle and package it all together with the installation zip file, created under the "\releases" folder.
+Now you can build the solution by opening the RedisCachingProvider.sln file on Visual Studio. Building the solution in "Release", will generate the React bundle and package it all together with the installation zip file, created under the "\releases" folder.
 
 On the Visual Studio output window you should see something like this:
 ```
