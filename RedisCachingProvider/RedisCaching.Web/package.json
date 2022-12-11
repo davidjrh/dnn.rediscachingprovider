@@ -1,7 +1,7 @@
 {
   "name": "dnn-redis-caching",
-  "version": "3.2.0",
-  "private": true,
+  "version": "4.0.0",
+  "private": false,
   "description": "DNN Redis Caching Provider persona bar settings",
   "repository": {
     "type": "git",
