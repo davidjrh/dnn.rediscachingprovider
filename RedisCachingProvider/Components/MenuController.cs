@@ -32,7 +32,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider.Components
 #if DEBUG
             var uiUrl = "http://localhost:8080/dist";
 #else
-            var uiUrl = "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.RedisCaching";
+            var uiUrl = "./Modules/Dnn.RedisCaching";
 #endif
             var apiUrl = "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.RedisCaching";
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
