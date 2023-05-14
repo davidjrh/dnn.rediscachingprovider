@@ -218,6 +218,121 @@ namespace DotNetNuke.Providers.RedisCachingProvider
         internal static ILog _logger;
         internal static ILog Logger => _logger ?? (_logger = LoggerSource.Instance.GetLogger(typeof(RedisCachingProvider)));
 
-
+        internal static string[] ClearCachePrefix(string cacheType, string data)
+        {
+            // based on CachingProvider.ClearCacheInternal
+            switch (cacheType)
+            {
+                case "Prefix":
+                    // based on ClearCacheInternal
+                    return new[] { data };
+                case "Host":
+                    // based on ClearHostCacheInternal
+                    return new[]
+                    {
+                        DataCache.HostSettingsCacheKey,
+                        DataCache.SecureHostSettingsCacheKey,
+                        DataCache.UnSecureHostSettingsCacheKey,
+                        DataCache.PortalAliasCacheKey,
+                        "CSS",
+                        "StyleSheets",
+                        DataCache.DesktopModulePermissionCacheKey,
+                        "GetRoles",
+                        "CompressionConfig",
+                        DataCache.SubscriptionTypesCacheKey,
+                        DataCache.PackageTypesCacheKey,
+                        DataCache.PermissionsCacheKey,
+                        DataCache.ContentTypesCacheKey,
+                        DataCache.JavaScriptLibrariesCacheKey,
+                        "Folders|",
+                        string.Format(DataCache.FolderPermissionCacheKey, Null.NullInteger),
+                        string.Format(DataCache.DesktopModuleCacheKey, Null.NullInteger),
+                        string.Format(DataCache.PortalDesktopModuleCacheKey, Null.NullInteger),
+                        DataCache.ModuleDefinitionCacheKey,
+                        DataCache.ModuleControlsCacheKey,
+                        string.Format(DataCache.PortalCacheKey, Null.NullInteger, string.Empty),
+                        string.Format(DataCache.LocalesCacheKey, Null.NullInteger),
+                        string.Format(DataCache.ProfileDefinitionsCacheKey, Null.NullInteger),
+                        string.Format(DataCache.ListsCacheKey, Null.NullInteger),
+                        string.Format(DataCache.SkinsCacheKey, Null.NullInteger),
+                        string.Format(DataCache.PortalUserCountCacheKey, Null.NullInteger),
+                        string.Format(DataCache.PackagesCacheKey, Null.NullInteger),
+                        DataCache.AllPortalsCacheKey,
+                        string.Format(DataCache.TabCacheKey, Null.NullInteger),
+                        string.Format(DataCache.TabAliasSkinCacheKey, Null.NullInteger),
+                        string.Format(DataCache.TabCustomAliasCacheKey, Null.NullInteger),
+                        string.Format(DataCache.TabUrlCacheKey, string.Empty),
+                        string.Format(DataCache.TabPermissionCacheKey, Null.NullInteger),
+                        "Tab_TabPathDictionary",
+                        string.Format(DataCache.TabPathCacheKey, Null.NullString, Null.NullInteger),
+                        string.Format(DataCache.TabSettingsCacheKey, Null.NullInteger)
+                    };
+                case "Folder":
+                    // based on ClearFolderCacheInternal
+                    return new[] { string.Format(DataCache.FolderCacheKey, string.Empty) };
+                case "Module":
+                    // based on ClearModuleCacheInternal
+                    return new[]
+                    {
+                        string.Format(DataCache.TabModuleCacheKey, data),
+                        string.Format(DataCache.SingleTabModuleCacheKey, string.Empty)
+                    };
+                case "ModulePermissionsByPortal":
+                    // based on ClearModulePermissionsCachesByPortalInternal
+                    return new[] { string.Format(DataCache.ModulePermissionCacheKey, string.Empty) };
+                case "Portal":
+                    // based on ClearPortalCacheInternal
+                    return new[]
+                    {
+                        string.Format(DataCache.PortalSettingsCacheKey, data, string.Empty),
+                        string.Format(DataCache.PortalCacheKey, data, string.Empty),
+                        string.Format(DataCache.FolderCacheKey, data),
+                        string.Format(DataCache.FolderPermissionCacheKey, data),
+                        string.Format(DataCache.PortalCacheKey, Null.NullInteger, string.Empty),
+                        string.Format(DataCache.LocalesCacheKey, data),
+                        string.Format(DataCache.ProfileDefinitionsCacheKey, data),
+                        string.Format(DataCache.ListsCacheKey, data),
+                        string.Format(DataCache.SkinsCacheKey,data),
+                        string.Format(DataCache.PortalUserCountCacheKey, data),
+                        string.Format(DataCache.PackagesCacheKey, data),
+                        DataCache.AllPortalsCacheKey
+                    };
+                case "PortalCascade":
+                    // based on ClearPortalCacheInternal
+                    return new[]
+                    {
+                        string.Format(DataCache.PortalSettingsCacheKey, data, string.Empty),
+                        string.Format(DataCache.PortalCacheKey, data, string.Empty),
+                        string.Format(DataCache.TabModuleCacheKey, data),
+                        string.Format(DataCache.SingleTabModuleCacheKey, string.Empty),
+                        string.Format(DataCache.FolderCacheKey, data),
+                        string.Format(DataCache.FolderPermissionCacheKey, data),
+                        string.Format(DataCache.PortalCacheKey, Null.NullInteger, string.Empty),
+                        string.Format(DataCache.LocalesCacheKey, data),
+                        string.Format(DataCache.ProfileDefinitionsCacheKey, data),
+                        string.Format(DataCache.ListsCacheKey, data),
+                        string.Format(DataCache.SkinsCacheKey,data),
+                        string.Format(DataCache.PortalUserCountCacheKey, data),
+                        string.Format(DataCache.PackagesCacheKey, data),
+                        DataCache.AllPortalsCacheKey
+                    };
+                case "Tab":
+                    // based on Tab
+                    return new[]
+                    {
+                        string.Format(DataCache.TabCacheKey, data),
+                        string.Format(DataCache.TabAliasSkinCacheKey, data),
+                        string.Format(DataCache.TabCustomAliasCacheKey, data),
+                        string.Format(DataCache.TabUrlCacheKey, string.Empty),
+                        string.Format(DataCache.TabPermissionCacheKey, data),
+                        "Tab_TabPathDictionary",
+                        string.Format(DataCache.TabPathCacheKey, Null.NullString, data),
+                        string.Format(DataCache.TabSettingsCacheKey, data)
+                    };
+                //case "ServiceFrameworkRoutes":
+                default:
+                    return new[] { string.Empty }; // delete all Redis cache
+            }
+        }
     }
 }

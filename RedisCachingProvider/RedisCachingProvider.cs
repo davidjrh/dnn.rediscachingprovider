@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DotNetNuke.Services.Cache;
+using StackExchange.Redis;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Web;
 using System.Web.Caching;
-using DotNetNuke.Services.Cache;
-using StackExchange.Redis;
 
 namespace DotNetNuke.Providers.RedisCachingProvider
 {
@@ -203,10 +203,13 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
 				if (notifyRedis) // Avoid recursive calls
 				{
-                    Shared.Logger.Info($"{InstanceUniqueId} - Clearing Redis cache...");				
-                    Shared.ClearRedisCache(RedisCache, $"{KeyPrefix}*");
+                    foreach(var clearCachePrefix in Shared.ClearCachePrefix(type, data))
+                    {
+                        Shared.Logger.Info($"{InstanceUniqueId} - Clearing Redis cache... {KeyPrefix}{clearCachePrefix}*");				
+                        Shared.ClearRedisCache(RedisCache, $"{KeyPrefix}{clearCachePrefix}*");
+                    }
                     Shared.Logger.Info($"{InstanceUniqueId} - Notifying cache clearing to other partners...");
-					// Notify the channel
+                    // Notify the channel
                     RedisCache.Publish(new RedisChannel(KeyPrefix + "Redis.Clear", RedisChannel.PatternMode.Auto), $"{InstanceUniqueId}:{type}:{data}");
                 }
 			}
@@ -216,7 +219,7 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 			}
 		}
 
-		public override void Remove(string key)
+        public override void Remove(string key)
 		{
 			Remove(key, true);
 		}
