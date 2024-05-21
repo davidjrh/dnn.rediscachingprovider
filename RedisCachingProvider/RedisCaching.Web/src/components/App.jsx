@@ -231,7 +231,7 @@ class App extends Component {
                             </div>
                         </div>  
                         <p>Finally, you can specify a key prefix to set on all the cached items, 
-                            so you can share the Redis server with other DNN instances. If you don't specify any, a default prefix will be applied.</p>
+                            so you can share the Redis server with other DNN instances. If you do not specify any, a default prefix will be applied.</p>
                         <div className="row-100">
                             <SingleLineInputWithError
                                 withLabel={true}
