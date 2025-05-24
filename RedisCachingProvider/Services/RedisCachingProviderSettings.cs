@@ -16,6 +16,12 @@ namespace DotNetNuke.Providers.RedisCachingProvider.Services
         [DataMember(Name = "connectionString")]
         public string ConnectionString { get; set; }
 
+        [DataMember(Name = "username")]
+        public string Username { get; set; }
+
+        [DataMember(Name = "password")]
+        public string Password { get; set; }
+
         [DataMember(Name = "cachingProviderEnabled")]
         public bool CachingProviderEnabled { get; set; }
 
@@ -52,11 +58,15 @@ namespace DotNetNuke.Providers.RedisCachingProvider.Services
             SaveAttribute(node, "useCompression", UseCompression.ToString());
             SaveAttribute(node, "silentMode", SilentMode.ToString());
             SaveAttribute(node, "keyPrefix", KeyPrefix);
+            SaveAttribute(node, "username", Username ?? string.Empty);
+            SaveAttribute(node, "password", Password ?? string.Empty);
 
             node = webconfig.SelectSingleNode("/configuration/dotnetnuke/outputCaching/providers/add[@name='RedisOutputCachingProvider']");
             SaveAttribute(node, "useCompression", UseCompression.ToString());
             SaveAttribute(node, "silentMode", SilentMode.ToString());
             SaveAttribute(node, "keyPrefix", KeyPrefix);
+            SaveAttribute(node, "username", Username ?? string.Empty);
+            SaveAttribute(node, "password", Password ?? string.Empty);
 
             webconfig.Save(filename);
 
@@ -84,6 +94,8 @@ namespace DotNetNuke.Providers.RedisCachingProvider.Services
             UseCompression = bool.Parse(node?.Attributes["useCompression"]?.Value);
             SilentMode = bool.Parse(node?.Attributes["silentMode"]?.Value);
             KeyPrefix = NotNull(node?.Attributes["keyPrefix"]?.Value);
+            Username = NotNull(node?.Attributes["username"]?.Value);
+            Password = NotNull(node?.Attributes["password"]?.Value);
         }
 
 

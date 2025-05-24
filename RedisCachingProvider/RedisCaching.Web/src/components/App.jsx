@@ -18,6 +18,8 @@ class App extends Component {
         this.state = {
             settingsLoaded: false,
             connectionString: "",
+            username: "",
+            password: "",
             cachingProviderEnabled: false,
             outputCachingProviderEnabled: false,
             useCompression: false,
@@ -38,6 +40,8 @@ class App extends Component {
         if (props.settingsLoaded) {
             this.setState({
                 connectionString: props.connectionString,
+                username: props.username,
+                password: props.password,
                 cachingProviderEnabled: props.cachingProviderEnabled,
                 outputCachingProviderEnabled: props.outputCachingProviderEnabled,
                 useCompression: props.useCompression,
@@ -54,6 +58,8 @@ class App extends Component {
     UNSAFE_componentWillReceiveProps(props) {
         this.setState({
             connectionString: props.connectionString,
+            username: props.username,
+            password: props.password,
             cachingProviderEnabled: props.cachingProviderEnabled,
             outputCachingProviderEnabled: props.outputCachingProviderEnabled,
             useCompression: props.useCompression,
@@ -69,6 +75,14 @@ class App extends Component {
 
         if (key === "ConnectionString") {
             state.connectionString = event.target.value;
+        }
+        
+        if (key === "Username") {
+            state.username = event.target.value;
+        }
+        
+        if (key === "Password") {
+            state.password = event.target.value;
         }
 
         if (key === "CachingProviderEnabled") {
@@ -99,6 +113,8 @@ class App extends Component {
         
         this.setState({
             connectionString: state.connectionString,
+            username: state.username,
+            password: state.password,
             cachingProviderEnabled: state.cachingProviderEnabled,
             outputCachingProviderEnabled: state.outputCachingProviderEnabled,
             useCompression: state.useCompression,
@@ -111,6 +127,8 @@ class App extends Component {
 
         props.dispatch(SettingsActions.settingsClientModified({
             connectionString: state.connectionString,
+            username: state.username,
+            password: state.password,
             cachingProviderEnabled: state.cachingProviderEnabled,
             outputCachingProviderEnabled: state.outputCachingProviderEnabled,
             useCompression: state.useCompression,
@@ -125,6 +143,8 @@ class App extends Component {
             props.dispatch(SettingsActions.getSettings((data) => {
                 this.setState({
                     connectionString: data.connectionString,
+                    username: data.username,
+                    password: data.password,
                     cachingProviderEnabled: data.cachingProviderEnabled,
                     outputCachingProviderEnabled: data.outputCachingProviderEnabled,
                     useCompression: data.useCompression,
@@ -152,6 +172,8 @@ class App extends Component {
 
         props.dispatch(SettingsActions.updateSettings({
             connectionString: state.connectionString,
+            username: state.username,
+            password: state.password,
             cachingProviderEnabled: state.cachingProviderEnabled,
             outputCachingProviderEnabled: state.outputCachingProviderEnabled,
             useCompression: state.useCompression,
@@ -206,6 +228,25 @@ class App extends Component {
                                 errorMessage={resx.get("plConnectionString.Help")}                                
                                 value={state.connectionString || ""}
                                 onChange={this.onSettingChange.bind(this, "ConnectionString") } />
+                        </div>
+
+                        <div className="row-100">
+                            <SingleLineInputWithError
+                                withLabel={true}
+                                label={resx.get("plUsername") || "Username" }
+                                enabled={state.cachingProviderEnabled || state.outputCachingProviderEnabled}
+                                value={state.username || ""}
+                                onChange={this.onSettingChange.bind(this, "Username") } />
+                        </div>
+
+                        <div className="row-100">
+                            <SingleLineInputWithError
+                                withLabel={true}
+                                label={resx.get("plPassword") || "Password" }
+                                enabled={state.cachingProviderEnabled || state.outputCachingProviderEnabled}
+                                value={state.password || ""}
+                                type="password"
+                                onChange={this.onSettingChange.bind(this, "Password") } />
                         </div>
 
                         <h3>Advanced settings</h3>
@@ -266,6 +307,8 @@ class App extends Component {
 App.PropTypes = {
     dispatch: PropTypes.func.isRequired,
     connectionString: PropTypes.string,
+    username: PropTypes.string,
+    password: PropTypes.string,
     cachingProviderEnabled: PropTypes.bool,
     outputCachingProviderEnabled: PropTypes.bool,
     useCompression: PropTypes.bool,
@@ -277,6 +320,8 @@ App.PropTypes = {
 function mapStateToProps(state) {
     return {
         connectionString: state.settings.connectionString,
+        username: state.settings.username,
+        password: state.settings.password,
         cachingProviderEnabled: state.settings.cachingProviderEnabled,
         outputCachingProviderEnabled: state.settings.outputCachingProviderEnabled,
         useCompression: state.settings.useCompression,

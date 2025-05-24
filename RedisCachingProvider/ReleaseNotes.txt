@@ -34,4 +34,5 @@ Redis cache. Note that all the objects must be serializable.  If you try to inse
 <p style="margin: 0">- Fixed an issue causing not adding the default keyPrefix when empty</p>
 <p style="margin: 0"><strong>Version 03.01.00</strong></p>
 <p style="margin: 0">- Updated persona bar module to be 9.3.x compatible</p>
-
+<p style="margin: 0"><strong>Version 03.02.00</strong></p>
+<p style="margin: 0">- Added support for username and password authentication with newer versions of StackExchange.Redis</p>
