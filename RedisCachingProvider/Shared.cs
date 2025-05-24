@@ -47,6 +47,29 @@ namespace DotNetNuke.Providers.RedisCachingProvider
             }
         }
 
+        internal static ConfigurationOptions GetRedisConfigurationOptions(string providerName)
+        {
+            var connectionString = ConnectionString;
+            var configOptions = ConfigurationOptions.Parse(connectionString);
+
+            // Check for username and password in provider settings
+            var username = GetProviderConfigAttribute(providerName, "username", string.Empty);
+            var password = GetProviderConfigAttribute(providerName, "password", string.Empty);
+
+            // Override with username and password if provided
+            if (!string.IsNullOrEmpty(username))
+            {
+                configOptions.User = username;
+            }
+            if (!string.IsNullOrEmpty(password))
+            {
+                configOptions.Password = password;
+            }
+
+            configOptions.AbortOnConnectFail = false;
+            return configOptions;
+        }
+
 
 
         internal static string Serialize(object source)

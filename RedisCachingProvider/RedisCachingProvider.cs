@@ -43,7 +43,8 @@ namespace DotNetNuke.Providers.RedisCachingProvider
 
 		private static readonly Lazy<ConnectionMultiplexer> LazyConnection = new Lazy<ConnectionMultiplexer>(() =>
 		{
-			var cn = ConnectionMultiplexer.Connect(Shared.ConnectionString);
+			var configOptions = Shared.GetRedisConfigurationOptions(ProviderName);
+			var cn = ConnectionMultiplexer.Connect(configOptions);
 			cn.GetSubscriber()
 				.Subscribe(new RedisChannel(KeyPrefix + "Redis.*", RedisChannel.PatternMode.Pattern),
 					ProcessMessage);
